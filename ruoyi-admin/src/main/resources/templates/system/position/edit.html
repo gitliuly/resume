@@ -10,9 +10,10 @@
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">所属行业id：</label>
             <div class="col-sm-8">
-                <select class="form-control" name="industryId" th:with="type=${@dict.getType('industry_name')}">
-                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"
-                            th:field="*{industryId}"></option>
+                <select class="form-control" name="industryId" th:with="type=${@industry.selectIndustry()}">
+                    <option value="">所有</option>
+                    <option th:each="industry : ${type}" th:text="${industry.industryName}"
+                            th:value="${industry.industryId}" th:field="*{industryId}"></option>
                 </select>
             </div>
         </div>

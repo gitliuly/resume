@@ -11,10 +11,10 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            所属行业：<select name="industryId" th:with="type=${@dict.getType('industry_name')}">
+                            所属行业：<select name="industryId" th:with="type=${@industry.selectIndustry()}">
                             <option value="">所有</option>
-                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
-                                    th:value="${dict.dictValue}"></option>
+                            <option th:each="industry : ${type}" th:text="${industry.industryName}"
+                                    th:value="${industry.industryId}"></option>
                         </select>
                         </li>
                         <li>

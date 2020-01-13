@@ -16,10 +16,22 @@ import com.ruoyi.common.core.text.Convert;
  * @author ruoyi
  * @date 2020-01-13
  */
-@Service
+@Service("industry")
 public class LnIndustryServiceImpl implements ILnIndustryService {
     @Autowired
     private LnIndustryMapper lnIndustryMapper;
+
+
+    /**
+     * 查询行业数据信息
+     *
+     * @param
+     * @return 行业信息
+     */
+    public List<LnIndustry> selectIndustry() {
+        return lnIndustryMapper.selectIndustry();
+    }
+
 
     /**
      * 查询行业

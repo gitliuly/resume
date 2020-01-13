@@ -14,6 +14,10 @@
         select industry_id, industry_name, create_time from ln_industry
     </sql>
 
+    <select id="selectIndustry" parameterType="LnIndustry" resultMap="LnIndustryResult">
+        <include refid="selectLnIndustryVo"/>
+    </select>
+
     <select id="selectLnIndustryList" parameterType="LnIndustry" resultMap="LnIndustryResult">
         <include refid="selectLnIndustryVo"/>
         <where>

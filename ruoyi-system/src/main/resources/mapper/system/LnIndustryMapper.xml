@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.LnIndustryMapper">
+
+    <resultMap type="LnIndustry" id="LnIndustryResult">
+        <result property="industryId" column="industry_id"/>
+        <result property="industryName" column="industry_name"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectLnIndustryVo">
+        select industry_id, industry_name, create_time from ln_industry
+    </sql>
+
+    <select id="selectLnIndustryList" parameterType="LnIndustry" resultMap="LnIndustryResult">
+        <include refid="selectLnIndustryVo"/>
+        <where>
+            <if test="industryName != null  and industryName != ''">and industry_name like concat('%', #{industryName},
+                '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectLnIndustryById" parameterType="Long" resultMap="LnIndustryResult">
+        <include refid="selectLnIndustryVo"/>
+        where industry_id = #{industryId}
+    </select>
+
+    <insert id="insertLnIndustry" parameterType="LnIndustry" useGeneratedKeys="true" keyProperty="industryId">
+        insert into ln_industry
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="industryName != null  and industryName != ''">industry_name,</if>
+            <if test="createTime != null ">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="industryName != null  and industryName != ''">#{industryName},</if>
+            <if test="createTime != null ">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateLnIndustry" parameterType="LnIndustry">
+        update ln_industry
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="industryName != null  and industryName != ''">industry_name = #{industryName},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+        </trim>
+        where industry_id = #{industryId}
+    </update>
+
+    <delete id="deleteLnIndustryById" parameterType="Long">
+        delete from ln_industry where industry_id = #{industryId}
+    </delete>
+
+    <delete id="deleteLnIndustryByIds" parameterType="String">
+        delete from ln_industry where industry_id in
+        <foreach item="industryId" collection="array" open="(" separator="," close=")">
+            #{industryId}
+        </foreach>
+    </delete>
+
+</mapper>

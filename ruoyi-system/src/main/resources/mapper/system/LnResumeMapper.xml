@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.LnResumeMapper">
+
+    <resultMap type="LnResume" id="LnResumeResult">
+        <result property="id"    column="id"    />
+        <result property="personName"    column="person_name"    />
+        <result property="sex"    column="sex"    />
+        <result property="age"    column="age"    />
+        <result property="phone"    column="phone"    />
+        <result property="industryId"    column="industry_id"    />
+        <result property="positionId"    column="position_id"    />
+        <result property="resumeUrl"    column="resume_url"    />
+        <result property="recommendCompanyId"    column="recommend_company_id"    />
+        <result property="status"    column="status"    />
+        <result property="entryCompanyId"    column="entry_company_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="industryName"    column="industry_name"    />
+        <result property="positionName"    column="position_name"    />
+    </resultMap>
+
+    <sql id="selectLnResumeVo">
+        select a.id, a.person_name, a.sex, a.age,a.phone, a.industry_id,
+               a.position_id, a.resume_url, a.recommend_company_id,
+               a.status, a.entry_company_id,a.create_time,d.industry_name,c.position_name
+               from ln_resume a
+                left join ln_industry d on a.industry_id = d.industry_id
+                left join ln_position c on a.position_id = c.position_id
+    </sql>
+
+    <select id="selectLnResumeList" parameterType="LnResume" resultMap="LnResumeResult">
+        <include refid="selectLnResumeVo"/>
+        <where>
+            <if test="personName != null  and personName != ''"> and a.person_name like concat('%', #{personName}, '%')</if>
+            <if test="industryId != null "> and a.industry_id = #{industryId}</if>
+            <if test="status != null  and status != ''"> and a.status = #{status}</if>
+        </where>
+    </select>
+
+    <select id="selectLnResumeById" parameterType="Integer" resultMap="LnResumeResult">
+        <include refid="selectLnResumeVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertLnResume" parameterType="LnResume" useGeneratedKeys="true" keyProperty="id">
+        insert into ln_resume
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="personName != null  and personName != ''">person_name,</if>
+            <if test="sex != null ">sex,</if>
+            <if test="phone != null ">phone,</if>
+            <if test="age != null ">age,</if>
+            <if test="industryId != null ">industry_id,</if>
+            <if test="positionId != null ">position_id,</if>
+            <if test="resumeUrl != null  and resumeUrl != ''">resume_url,</if>
+            <if test="recommendCompanyId != null  and recommendCompanyId != ''">recommend_company_id,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="entryCompanyId != null  and entryCompanyId != ''">entry_company_id,</if>
+            <if test="createTime != null ">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="personName != null  and personName != ''">#{personName},</if>
+            <if test="sex != null ">#{sex},</if>
+            <if test="phone != null ">#{phone},</if>
+            <if test="age != null ">#{age},</if>
+            <if test="industryId != null ">#{industryId},</if>
+            <if test="positionId != null ">#{positionId},</if>
+            <if test="resumeUrl != null  and resumeUrl != ''">#{resumeUrl},</if>
+            <if test="recommendCompanyId != null  and recommendCompanyId != ''">#{recommendCompanyId},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="entryCompanyId != null  and entryCompanyId != ''">#{entryCompanyId},</if>
+            <if test="createTime != null ">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateLnResume" parameterType="LnResume">
+        update ln_resume
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="personName != null  and personName != ''">person_name = #{personName},</if>
+            <if test="sex != null ">sex = #{sex},</if>
+            <if test="phone != null ">phone =#{phone},</if>
+            <if test="age != null ">age = #{age},</if>
+            <if test="industryId != null ">industry_id = #{industryId},</if>
+            <if test="positionId != null ">position_id = #{positionId},</if>
+            <if test="resumeUrl != null  and resumeUrl != ''">resume_url = #{resumeUrl},</if>
+            <if test="recommendCompanyId != null  and recommendCompanyId != ''">recommend_company_id = #{recommendCompanyId},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="entryCompanyId != null  and entryCompanyId != ''">entry_company_id = #{entryCompanyId},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLnResumeById" parameterType="Integer">
+        delete from ln_resume where id = #{id}
+    </delete>
+
+    <delete id="deleteLnResumeByIds" parameterType="String">
+        delete from ln_resume where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

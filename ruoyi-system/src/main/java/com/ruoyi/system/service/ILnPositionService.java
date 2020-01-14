@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 职位Service接口
  *
- * @author ruoyi
+ * @author guzf
  * @date 2020-01-13
  */
 public interface ILnPositionService {

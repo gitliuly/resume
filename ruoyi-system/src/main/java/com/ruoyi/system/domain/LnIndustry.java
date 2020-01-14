@@ -8,7 +8,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
 /**
  * 行业对象 ln_industry
  *
- * @author ruoyi
+ * @author guzf
  * @date 2020-01-13
  */
 public class LnIndustry extends BaseEntity {

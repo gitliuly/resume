@@ -8,7 +8,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
 /**
  * 职位对象 ln_position
  *
- * @author ruoyi
+ * @author guzf
  * @date 2020-01-13
  */
 public class LnPosition extends BaseEntity {

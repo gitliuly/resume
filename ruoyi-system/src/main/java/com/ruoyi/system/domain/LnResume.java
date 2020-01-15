@@ -51,7 +51,7 @@ public class LnResume extends BaseEntity {
     private String status;
 
     /** 入职公司Id */
-    @Excel(name = "入职公司Id")
+    @Excel(name = "入职公司")
     private String entryCompanyId;
 
     private String industryName;

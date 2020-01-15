@@ -44,6 +44,9 @@ public interface ILnResumeService {
      */
     public int updateLnResume(LnResume lnResume);
 
+
+    public int eitOnboarding(LnResume lnResume);
+
     /**
      * 批量删除个人简历
      *

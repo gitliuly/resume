@@ -80,10 +80,13 @@ public class LnResumeServiceImpl implements ILnResumeService {
     public int updateLnResume(LnResume lnResume)
     {
         //删除
-        System.out.println(lnResume.getId());
        sysResumePostMapper.deleteSysResumePostById(lnResume.getId());
         // 新增简历企业关联
         insertResumePost(lnResume);
+        return lnResumeMapper.updateLnResume(lnResume);
+    }
+    @Override
+    public int eitOnboarding(LnResume lnResume){
         return lnResumeMapper.updateLnResume(lnResume);
     }
 

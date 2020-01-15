@@ -51,11 +51,11 @@ public class LnResumeController extends BaseController {
     @ResponseBody
     public TableDataInfo list(LnResume lnResume)
     {
+        lnResume.setStatus("0");
         startPage();
         List<LnResume> list = lnResumeService.selectLnResumeList(lnResume);
         return getDataTable(list);
     }
-
     /**
      * 导出个人简历列表
      */
@@ -130,5 +130,23 @@ public class LnResumeController extends BaseController {
     public AjaxResult remove(String ids)
     {
         return toAjax(lnResumeService.deleteLnResumeByIds(ids));
+    }
+
+    @RequiresPermissions("system:resume:onboarding")
+    @Log(title = "入职企业", businessType = BusinessType.UPDATE)
+    @GetMapping("/onboarding/{id}")
+    public String resetPwd(@PathVariable("id") Integer id, ModelMap mmap)
+    {
+        mmap.put("lnResume", lnResumeService.selectLnResumeById(id));
+        return prefix + "/business";
+    }
+    @RequiresPermissions("system:resume:onboarding")
+    @Log(title = "入职企业", businessType = BusinessType.UPDATE)
+    @PostMapping("/eitOnboarding")
+    @ResponseBody
+    public AjaxResult eitOnboarding(LnResume lnResume){
+        lnResume.setStatus("1");
+        lnResumeService.eitOnboarding(lnResume);
+        return success();
     }
 }

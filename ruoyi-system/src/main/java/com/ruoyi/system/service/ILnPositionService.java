@@ -58,4 +58,12 @@ public interface ILnPositionService {
      * @return 结果
      */
     public int deleteLnPositionById(Integer positionId);
+
+    /**
+     * 删除行业前判断是否存在子目录（职位）
+     *
+     * @param industryId 需要删除的行业ID
+     * @return 结果
+     */
+    public int selectPositionResult(String industryId);
 }

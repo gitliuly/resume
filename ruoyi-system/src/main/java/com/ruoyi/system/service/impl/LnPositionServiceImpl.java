@@ -87,4 +87,15 @@ public class LnPositionServiceImpl implements ILnPositionService {
     public int deleteLnPositionById(Integer positionId) {
         return lnPositionMapper.deleteLnPositionById(positionId);
     }
+
+    /**
+     * 删除行业前判断是否存在子目录（职位）
+     *
+     * @param industryId 需要删除的行业ID
+     * @return 结果
+     */
+    @Override
+    public int selectPositionResult(String industryId) {
+        return lnPositionMapper.selectPositionResult(industryId);
+    }
 }

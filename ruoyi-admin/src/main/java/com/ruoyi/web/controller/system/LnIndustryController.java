@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ruoyi.system.domain.LnIndustry;
 import com.ruoyi.system.service.ILnIndustryService;
+import com.ruoyi.system.service.ILnPositionService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,8 @@ public class LnIndustryController extends BaseController {
 
     @Autowired
     private ILnIndustryService lnIndustryService;
+    @Autowired
+    private ILnPositionService iLnPositionService;
 
     @RequiresPermissions("system:industry:view")
     @GetMapping()
@@ -113,6 +116,11 @@ public class LnIndustryController extends BaseController {
     @PostMapping("/remove")
     @ResponseBody
     public AjaxResult remove(String ids) {
-        return toAjax(lnIndustryService.deleteLnIndustryByIds(ids));
+        Integer result = iLnPositionService.selectPositionResult(ids);
+        if (result > 0) {
+            return error("该行业下存在职位，无法删除！");
+        } else {
+            return toAjax(lnIndustryService.deleteLnIndustryByIds(ids));
+        }
     }
 }

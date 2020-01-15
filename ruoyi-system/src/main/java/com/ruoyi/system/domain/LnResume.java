@@ -57,6 +57,17 @@ public class LnResume extends BaseEntity {
     private String industryName;
     private String positionName;
 
+    /** 企业组 */
+    private Long[] postIds;
+
+    public Long[] getPostIds() {
+        return postIds;
+    }
+
+    public void setPostIds(Long[] postIds) {
+        this.postIds = postIds;
+    }
+
     public String getPositionName() {
         return positionName;
     }

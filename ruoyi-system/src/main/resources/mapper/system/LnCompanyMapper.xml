@@ -26,11 +26,28 @@
             <if test="address != null  and address != ''"> and address = #{address}</if>
         </where>
     </select>
-
+    <!-- selectLnCompanyAll-->
+    <select id="selectLnCompanyAll"  resultMap="LnCompanyResult">
+        <include refid="selectLnCompanyVo"/>
+    </select>
     <select id="selectLnCompanyById" parameterType="Integer" resultMap="LnCompanyResult">
         <include refid="selectLnCompanyVo"/>
         where company_id = #{companyId}
     </select>
+
+    <select id="selectLnCompanyPostById" parameterType="Integer" resultMap="LnCompanyResult">
+            SELECT
+                p.company_id,
+                p.company_name
+            FROM
+                ln_resume u
+            LEFT JOIN sys_resume_post up ON u.id = up.resume_id
+            LEFT JOIN ln_company p ON up.company_id = p.company_id
+            WHERE
+                up.resume_id = #{id}
+	</select>
+
+
 
     <insert id="insertLnCompany" parameterType="LnCompany" useGeneratedKeys="true" keyProperty="companyId">
         insert into ln_company

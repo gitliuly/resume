@@ -2,6 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <th:block th:include="include :: header('修改个人简历')" />
+    <th:block th:include="include :: select2-css" />
 </head>
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
@@ -53,9 +54,19 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="col-sm-3 control-label">推荐公司：</label>
+            <div class="col-sm-8">
+                <select id="post" class="form-control select2-multiple" multiple>
+                    <option th:each="post:${company}" th:value="${post.companyId}" th:text="${post.companyName}" th:selected="${post.flag}"></option>
+                </select>
+            </div>
+        </div>
+
     </form>
 </div>
 <th:block th:include="include :: footer" />
+<th:block th:include="include :: select2-js" />
 <script type="text/javascript">
     var prefix = ctx + "system/resume";
     $("#form-resume-edit").validate({
@@ -101,7 +112,10 @@
         };
 
         if ($.validate.form()) {
-            $.operate.save(prefix + "/edit", $('#form-resume-edit').serialize());
+            var data = $("#form-resume-edit").serializeArray();
+            var postIds = $.form.selectSelects("post");
+            data.push({"name": "postIds", "value": postIds});
+            $.operate.save(prefix + "/edit", data);
         }
     }
 </script>

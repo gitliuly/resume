@@ -26,6 +26,8 @@ public interface LnCompanyMapper {
      */
     public List<LnCompany> selectLnCompanyList(LnCompany lnCompany);
 
+    List<LnCompany> selectLnCompanyAll();
+
     /**
      * 新增公司
      *
@@ -57,4 +59,14 @@ public interface LnCompanyMapper {
      * @return 结果
      */
     public int deleteLnCompanyByIds(String[] companyIds);
+
+    /**
+     * 根据简历ID查询企业
+     *
+     * @param id 简历
+     * @return 企业列表
+     */
+    public List<LnCompany> selectLnCompanyPostById( Integer id);
+
+
 }

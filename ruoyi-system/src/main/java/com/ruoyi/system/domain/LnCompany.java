@@ -34,6 +34,15 @@ public class LnCompany extends BaseEntity {
     /** 公司地址（手填） */
     @Excel(name = "公司地址", readConverterExp = "手=填")
     private String address;
+    private boolean flag = false;
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
 
     public String getIndustryName() {
         return industryName;

@@ -8,6 +8,7 @@ import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.system.domain.LnPosition;
 import com.ruoyi.system.domain.LnResume;
+import com.ruoyi.system.service.ILnCompanyService;
 import com.ruoyi.system.service.ILnPositionService;
 import com.ruoyi.system.service.ILnResumeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -33,6 +34,8 @@ public class LnResumeController extends BaseController {
     private ILnResumeService lnResumeService;
     @Autowired
     private ILnPositionService lnPositionService;
+    @Autowired
+    private ILnCompanyService lnCompanyService;
     @RequiresPermissions("system:resume:view")
     @GetMapping()
     public String resume()
@@ -71,8 +74,10 @@ public class LnResumeController extends BaseController {
      * 新增个人简历
      */
     @GetMapping("/add")
-    public String add()
+    public String add(ModelMap mmap)
     {
+        //selectLnCompanyAll
+        mmap.put("company", lnCompanyService.selectLnCompanyAll());
         return prefix + "/add";
     }
 
@@ -98,6 +103,7 @@ public class LnResumeController extends BaseController {
         LnPosition lnPosition =new LnPosition();
         lnPosition.setIndustryId(lnResume.getIndustryId());
         mmap.put("position",  lnPositionService.selectLnPositionList(lnPosition));
+        mmap.put("company", lnCompanyService.selectLnCompanyPostById(id));
         mmap.put("lnResume", lnResume);
         return prefix + "/edit";
     }

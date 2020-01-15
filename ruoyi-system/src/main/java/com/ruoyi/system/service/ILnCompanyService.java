@@ -27,6 +27,10 @@ public interface ILnCompanyService {
     public List<LnCompany> selectLnCompanyList(LnCompany lnCompany);
 
     /**
+     * 查询所有企业
+     */
+    public List<LnCompany> selectLnCompanyAll();
+    /**
      * 新增公司
      *
      * @param lnCompany 公司
@@ -57,4 +61,13 @@ public interface ILnCompanyService {
      * @return 结果
      */
     public int deleteLnCompanyById(Integer companyId);
+
+    /**
+     * 根据简历ID查询企业
+     *
+     * @param id 简历ID
+     * @return 企业列表
+     */
+    public List<LnCompany> selectLnCompanyPostById(Integer id);
+
 }

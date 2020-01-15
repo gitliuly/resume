@@ -54,7 +54,11 @@ public class LnCompanyServiceImpl  implements ILnCompanyService {
         }
         return LnCompanyList;
     }
+    @Override
+    public List<LnCompany> selectLnCompanyAll(){
 
+        return lnCompanyMapper.selectLnCompanyAll();
+    }
     /**
      * 新增公司
      *
@@ -102,5 +106,20 @@ public class LnCompanyServiceImpl  implements ILnCompanyService {
     public int deleteLnCompanyById(Integer companyId)
     {
         return lnCompanyMapper.deleteLnCompanyById(companyId);
+    }
+    @Override
+    public List<LnCompany> selectLnCompanyPostById(Integer id){
+        List<LnCompany> companyPost= lnCompanyMapper.selectLnCompanyPostById(id);
+        List<LnCompany> posts= lnCompanyMapper.selectLnCompanyAll();
+        for (LnCompany post : posts){
+            for (LnCompany companyRole : companyPost){
+                if (post.getCompanyId().longValue() == companyRole.getCompanyId().longValue())
+                {
+                    post.setFlag(true);
+                    break;
+                }
+            }
+        }
+        return posts;
     }
 }

@@ -2,6 +2,7 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 
+import com.ruoyi.system.service.ILnResumeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,8 @@ public class LnPositionController extends BaseController {
 
     @Autowired
     private ILnPositionService lnPositionService;
+    @Autowired
+    private ILnResumeService iLnResumeService;
 
     @RequiresPermissions("system:position:view")
     @GetMapping()
@@ -113,6 +116,12 @@ public class LnPositionController extends BaseController {
     @PostMapping("/remove")
     @ResponseBody
     public AjaxResult remove(String ids) {
-        return toAjax(lnPositionService.deleteLnPositionByIds(ids));
+        Integer result = iLnResumeService.selectResumeResult(ids);
+        if (result > 0) {
+            return error("有应聘者求职该职位，无法删除！");
+        } else {
+            return toAjax(lnPositionService.deleteLnPositionByIds(ids));
+        }
+
     }
 }

@@ -30,6 +30,10 @@
                 left join ln_position c on a.position_id = c.position_id
     </sql>
 
+    <select id="selectResumeResult" parameterType="String" resultType="Integer">
+        SELECT COUNT(position_id) FROM ln_resume WHERE position_id = #{positionId}
+    </select>
+
     <select id="selectLnResumeList" parameterType="LnResume" resultMap="LnResumeResult">
         <include refid="selectLnResumeVo"/>
         <where>

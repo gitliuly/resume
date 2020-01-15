@@ -138,4 +138,14 @@ public class LnResumeServiceImpl implements ILnResumeService {
         }
     }
 
+    /**
+     * 删除职位前判断是否有求职该职位
+     *
+     * @param positionId 职位ID
+     * @return 结果
+     */
+    @Override
+    public int selectResumeResult(String positionId) {
+        return lnResumeMapper.selectResumeResult(positionId);
+    }
 }

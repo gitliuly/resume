@@ -43,8 +43,8 @@ public class LnResume extends BaseEntity {
     private String resumeUrl;
 
     /** 推荐公司Id（推荐多个） */
-    @Excel(name = "推荐公司Id", readConverterExp = "推=荐多个")
-    private String recommendCompanyId;
+    @Excel(name = "推荐公司", readConverterExp = "推=荐多个")
+    private String recommendCompany;
 
     /** 是否入职（0否 1是） */
     @Excel(name = "是否入职", readConverterExp = "0=否,1=是")
@@ -155,14 +155,14 @@ public class LnResume extends BaseEntity {
     {
         return resumeUrl;
     }
-    public void setRecommendCompanyId(String recommendCompanyId)
+    public void setRecommendCompany(String recommendCompany)
     {
-        this.recommendCompanyId = recommendCompanyId;
+        this.recommendCompany = recommendCompany;
     }
 
-    public String getRecommendCompanyId()
+    public String getRecommendCompany()
     {
-        return recommendCompanyId;
+        return recommendCompany;
     }
     public void setStatus(String status)
     {
@@ -194,7 +194,7 @@ public class LnResume extends BaseEntity {
                 .append("industryId", getIndustryId())
                 .append("positionId", getPositionId())
                 .append("resumeUrl", getResumeUrl())
-                .append("recommendCompanyId", getRecommendCompanyId())
+                .append("recommendCompanyId", getRecommendCompany())
                 .append("status", getStatus())
                 .append("entryCompanyId", getEntryCompanyId())
                 .append("createTime", getCreateTime())

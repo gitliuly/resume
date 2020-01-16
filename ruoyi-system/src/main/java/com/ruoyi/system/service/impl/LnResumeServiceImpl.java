@@ -3,8 +3,10 @@ package com.ruoyi.system.service.impl;
 import com.ruoyi.common.core.text.Convert;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.system.domain.LnCompany;
 import com.ruoyi.system.domain.LnResume;
 import com.ruoyi.system.domain.SysResumePost;
+import com.ruoyi.system.mapper.LnCompanyMapper;
 import com.ruoyi.system.mapper.LnResumeMapper;
 import com.ruoyi.system.mapper.SysResumePostMapper;
 import com.ruoyi.system.service.ILnResumeService;
@@ -27,6 +29,8 @@ public class LnResumeServiceImpl implements ILnResumeService {
     private LnResumeMapper lnResumeMapper;
     @Autowired
     private SysResumePostMapper sysResumePostMapper;
+    @Autowired
+    private LnCompanyMapper lnCompanyMapper;
 
     /**
      * 查询个人简历
@@ -66,6 +70,13 @@ public class LnResumeServiceImpl implements ILnResumeService {
         int i= lnResumeMapper.insertLnResume(lnResume);
         // 新增简历企业关联
         insertResumePost(lnResume);
+        List<LnCompany> companyPost= lnCompanyMapper.selectLnCompanyPostById(lnResume.getId());
+        String zhiwei="";
+        for (LnCompany list :companyPost){
+            zhiwei+=list.getCompanyName()+",";
+        }
+        lnResume.setRecommendCompany(zhiwei);
+        lnResumeMapper.updateLnResume(lnResume);
         return i;
     }
 
@@ -83,6 +94,12 @@ public class LnResumeServiceImpl implements ILnResumeService {
        sysResumePostMapper.deleteSysResumePostById(lnResume.getId());
         // 新增简历企业关联
         insertResumePost(lnResume);
+        List<LnCompany> companyPost= lnCompanyMapper.selectLnCompanyPostById(lnResume.getId());
+        String zhiwei="";
+        for (LnCompany list :companyPost){
+            zhiwei+=list.getCompanyName()+",";
+        }
+        lnResume.setRecommendCompany(zhiwei);
         return lnResumeMapper.updateLnResume(lnResume);
     }
     @Override

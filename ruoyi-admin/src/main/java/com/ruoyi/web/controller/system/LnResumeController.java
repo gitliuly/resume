@@ -1,10 +1,12 @@
 package com.ruoyi.web.controller.system;
 
 import com.ruoyi.common.annotation.Log;
+import com.ruoyi.common.config.Global;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.common.utils.file.FileUploadUtils;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.system.domain.LnPosition;
 import com.ruoyi.system.domain.LnResume;
@@ -16,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -148,5 +152,30 @@ public class LnResumeController extends BaseController {
         lnResume.setStatus("1");
         lnResumeService.eitOnboarding(lnResume);
         return success();
+    }
+    @RequiresPermissions("system:resume:upload")
+    @Log(title = "文件上传", businessType = BusinessType.UPDATE)
+    @GetMapping("/Upload/{id}")
+    public String Upload(@PathVariable("id") Integer id, ModelMap mmap)
+    {
+        mmap.put("lnResume", lnResumeService.selectLnResumeById(id));
+        return prefix + "/upload";
+    }
+    @RequiresPermissions("system:resume:upload")
+    @Log(title = "文件上传", businessType = BusinessType.UPDATE)
+    @PostMapping("/upload")
+    @ResponseBody
+    public AjaxResult Uploads(LnResume lnResume, @RequestParam("file") MultipartFile file)
+    {
+        if (!file.isEmpty()) {
+            try {
+                String files = FileUploadUtils.upload(Global.getUploadPath(), file);
+                System.out.println(files);
+                lnResume.setResumeUrl(files);
+            } catch (IOException e) {
+                return error("上传文件失败");
+            }
+        }
+        return toAjax( lnResumeService.eitOnboarding(lnResume));
     }
 }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('上传文件')" />
+    <th:block th:include="include :: jasny-bootstrap-css" />
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-user-upload" enctype="multipart/form-data">
+        <input name="id"  type="hidden"  th:value="${lnResume.id}" />
+        <div class="form-group">
+            <label class="col-sm-3 control-label">文件上传：</label>
+            <div class="col-sm-8">
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                    <span class="input-group-addon btn btn-white btn-file"><span class="fileinput-new">选择文件</span><span class="fileinput-exists">更改</span><input type="file" id="file" name="file" ></span>
+                    <a href="#" class="input-group-addon btn btn-white fileinput-exists" data-dismiss="fileinput">清除</a>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: jasny-bootstrap-js" />
+<script type="text/javascript">
+    $("#form-user-upload").validate({
+        rules:{
+            password:{
+                required:true,
+                minlength: 5,
+                maxlength: 20
+            },
+        },
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        var location=$("input[name='file']").val();
+        var point = location.lastIndexOf(".");
+        var flag = false; //状态
+        var type = location.substr(point);
+        var arr = [".pdf",".docx"];
+        for(var i=0;i<arr.length;i++)
+        {
+            if(type == arr[i])
+            {
+                flag = true; //一旦找到合适的，立即退出循环
+                break;
+            }
+        }
+        if(!flag)
+        {
+            $.modal.msgError("只能上传.pdf 或 .docx 的文件");
+            $("#file").val("");
+            return false;
+        }
+        if ($.validate.form()) {
+            $.ajax({
+                url: ctx + "system/resume/upload",
+                type: 'post',
+                processData: false,
+                contentType: false,
+                data: new FormData($("#form-user-upload")[0]),
+                success: function (result) {
+                    // $.operate.successTabCallback(result);
+                    if (typeof callback == "function") {
+                        callback(result);
+                    }
+                    $.operate.successCallback(result);
+                },
+                error: function (error) {
+                    $.modal.alertWarning("添加失败 ");
+                }
+            })
+
+
+
+        }
+    }
+</script>
+</body>
+
+</html>

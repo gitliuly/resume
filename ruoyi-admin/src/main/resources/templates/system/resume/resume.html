@@ -151,7 +151,7 @@
                         actions.push('<a class="btn btn-info btn-xs ' + onboardingFlag + '" href="javascript:void(0)" onclick="onboarding(\'' + row.id + '\')"><i class="fa fa-key"></i>已入职</a> ');
                         actions.push('<a class="btn btn-default btn-xs ' + onboardingFlag + '" href="javascript:void(0)" onclick="Upload(\'' + row.id + '\')"><i class="fa fa-upload"></i>上传</a> ');
                         if(row.resumeUrl!=null){
-                            actions.push('<a class="btn btn-warning btn-xs ' + onboardingFlag + '" href="javascript:void(0)" onclick="Jump(\'' + row.resumeUrl + '\')"><i class="fa fa-download"></i>下载</a> ');
+                            actions.push('<a class="btn btn-warning btn-xs ' + onboardingFlag + '" href="javascript:void(0)" onclick="Jump(\'' + row.resumeUrl + '\',\'' + row.personName + '\')"><i class="fa fa-download"></i>下载</a> ');
                         }
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a> ');
@@ -171,8 +171,8 @@
         var url = prefix + '/Upload/' + id;
         $.modal.open("上传文件", url, '800', '300');
     }
-    function Jump(resumeUrl) {
-        $.modal.confirm("确定要下载吗？", function() {
+    function Jump(resumeUrl,personName) {
+        $.modal.confirm("确定要下载"+personName +"简历吗？", function() {
              var a = document.createElement('a');
              a.setAttribute('href', resumeUrl);
              a.setAttribute('target', '_blank');

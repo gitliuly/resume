@@ -56,6 +56,17 @@ public class LnIndustryServiceImpl implements ILnIndustryService {
     }
 
     /**
+     * 查询行业名称
+     *
+     * @param industryName 行业名称
+     * @return 结果
+     */
+    @Override
+    public int checkIndustryName(String industryName) {
+        return lnIndustryMapper.checkIndustryName(industryName);
+    }
+
+    /**
      * 新增行业
      *
      * @param lnIndustry 行业

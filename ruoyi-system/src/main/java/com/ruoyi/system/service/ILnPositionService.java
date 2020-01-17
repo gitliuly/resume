@@ -28,6 +28,14 @@ public interface ILnPositionService {
     public List<LnPosition> selectLnPositionList(LnPosition lnPosition);
 
     /**
+     * 查询职位名称
+     *
+     * @param positionName 职位名称
+     * @return 结果
+     */
+    public int checkPositionName(String positionName, Long industryId);
+
+    /**
      * 新增职位
      *
      * @param lnPosition 职位

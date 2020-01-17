@@ -44,6 +44,17 @@ public class LnPositionServiceImpl implements ILnPositionService {
     }
 
     /**
+     * 查询职位名称
+     *
+     * @param positionName 职位名称
+     * @return 结果
+     */
+    @Override
+    public int checkPositionName(String positionName, Long industryId) {
+        return lnPositionMapper.checkPositionName(positionName, industryId);
+    }
+
+    /**
      * 新增职位
      *
      * @param lnPosition 职位

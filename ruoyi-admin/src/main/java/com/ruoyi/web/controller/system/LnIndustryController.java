@@ -77,6 +77,20 @@ public class LnIndustryController extends BaseController {
     }
 
     /**
+     * ajax 动态判断行业名称唯一
+     */
+    @PostMapping("/checkIndustryName")
+    @ResponseBody
+    public int checkIndustryName(String industryName) {
+        int result = lnIndustryService.checkIndustryName(industryName);
+        if (result > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
      * 新增保存行业
      */
     @RequiresPermissions("system:industry:add")

@@ -28,6 +28,14 @@ public interface ILnIndustryService {
     public List<LnIndustry> selectLnIndustryList(LnIndustry lnIndustry);
 
     /**
+     * 查询行业名称
+     *
+     * @param industryName 行业名称
+     * @return 结果
+     */
+    public int checkIndustryName(String industryName);
+
+    /**
      * 新增行业
      *
      * @param lnIndustry 行业

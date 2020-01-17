@@ -20,6 +20,10 @@
         SELECT COUNT(industry_id) FROM ln_position WHERE industry_id = #{industryId}
     </select>
 
+    <select id="checkPositionName" parameterType="LnPosition" resultType="Integer">
+        SELECT COUNT(position_name) FROM ln_position WHERE industry_id = #{industryId} AND position_name = #{positionName}
+    </select>
+
     <select id="selectLnPositionList" parameterType="LnPosition" resultMap="LnPositionResult">
         select pos.position_id, pos.industry_id, ind.industry_name as industryName, pos.position_name
         from ln_position pos LEFT JOIN ln_industry ind ON pos.industry_id = ind.industry_id

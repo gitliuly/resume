@@ -18,6 +18,10 @@
         <include refid="selectLnIndustryVo"/>
     </select>
 
+    <select id="checkIndustryName" parameterType="String" resultType="Integer">
+        SELECT COUNT(industry_name) FROM ln_industry WHERE industry_name = #{industryName}
+    </select>
+
     <select id="selectLnIndustryList" parameterType="LnIndustry" resultMap="LnIndustryResult">
         <include refid="selectLnIndustryVo"/>
         <where>

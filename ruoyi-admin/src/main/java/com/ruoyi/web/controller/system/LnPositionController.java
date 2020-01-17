@@ -77,6 +77,20 @@ public class LnPositionController extends BaseController {
     }
 
     /**
+     * ajax 动态判断职位名称唯一
+     */
+    @PostMapping("/checkPositionName")
+    @ResponseBody
+    public int checkPositionName(String positionName, Long industryId) {
+        int result = lnPositionService.checkPositionName(positionName, industryId);
+        if (result > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
      * 新增保存职位
      */
     @RequiresPermissions("system:position:add")

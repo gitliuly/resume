@@ -1,6 +1,7 @@
 package com.ruoyi.system.mapper;
 
 import com.ruoyi.system.domain.LnPosition;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,6 +27,14 @@ public interface LnPositionMapper {
      * @return 职位集合
      */
     public List<LnPosition> selectLnPositionList(LnPosition lnPosition);
+
+    /**
+     * 查询职位名称
+     *
+     * @param positionName 职位名称
+     * @return 结果
+     */
+    public int checkPositionName(@Param("positionName") String positionName, @Param("industryId") Long industryId);
 
     /**
      * 新增职位

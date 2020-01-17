@@ -1,6 +1,11 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.LnCompany;
+import com.ruoyi.system.domain.LnResume;
+import com.ruoyi.system.service.ILnCompanyService;
+import com.ruoyi.system.service.ILnResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,6 +27,10 @@ public class SysIndexController extends BaseController
 {
     @Autowired
     private ISysMenuService menuService;
+    @Autowired
+    private ILnResumeService lnResumeService;
+    @Autowired
+    private ILnCompanyService lnCompanyService;
 
     // 系统首页
     @GetMapping("/index")
@@ -49,6 +58,17 @@ public class SysIndexController extends BaseController
     @GetMapping("/system/main")
     public String main(ModelMap mmap)
     {
+
+        LnResume lnResume =new LnResume();
+        lnResume.setStatus("0");
+        List<LnResume> list = lnResumeService.selectLnResumeList(lnResume);
+        lnResume.setStatus("1");
+        List<LnResume> lists = lnResumeService.selectLnResumeList(lnResume);
+        LnCompany lnCompany=new LnCompany();
+        List<LnCompany> CompanyList = lnCompanyService.selectLnCompanyList(lnCompany);
+        mmap.put("apply", list.size());
+        mmap.put("onboarding", lists.size());
+        mmap.put("companyList", CompanyList.size());
         mmap.put("version", Global.getVersion());
         return "main";
     }

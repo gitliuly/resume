@@ -19,11 +19,13 @@
         <result property="createTime"    column="create_time"    />
         <result property="industryName"    column="industry_name"    />
         <result property="positionName"    column="position_name"    />
+
+        <result property="recentCompany"    column="recent_company"    />
     </resultMap>
 
     <sql id="selectLnResumeVo">
         select a.id, a.person_name, a.sex, a.age,a.phone, a.industry_id,
-               a.position_id, a.resume_url, a.recommend_company,
+               a.position_id, a.resume_url, a.recommend_company,a.recent_company,
                a.status, a.entry_company_id,a.create_time,d.industry_name,c.position_name
                from ln_resume a
                 left join ln_industry d on a.industry_id = d.industry_id
@@ -42,6 +44,7 @@
         <include refid="selectLnResumeVo"/>
         <where>
             <if test="personName != null  and personName != ''"> and a.person_name like concat('%', #{personName}, '%')</if>
+            <if test="recentCompany != null  and recentCompany != ''"> and a.recent_company like concat('%', #{recentCompany}, '%')</if>
             <if test="industryId != null "> and a.industry_id = #{industryId}</if>
             <if test="age != null "> and a.age = #{age}</if>
             <if test="recommendCompany != null  and recommendCompany != ''">and a.recommend_company like concat('%', #{recommendCompany}, '%')</if>
@@ -59,6 +62,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="personName != null  and personName != ''">person_name,</if>
             <if test="sex != null ">sex,</if>
+            <if test="recentCompany != null ">recent_company,</if>
             <if test="phone != null ">phone,</if>
             <if test="age != null ">age,</if>
             <if test="industryId != null ">industry_id,</if>
@@ -72,6 +76,7 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="personName != null  and personName != ''">#{personName},</if>
             <if test="sex != null ">#{sex},</if>
+            <if test="recentCompany != null ">#{recentCompany},</if>
             <if test="phone != null ">#{phone},</if>
             <if test="age != null ">#{age},</if>
             <if test="industryId != null ">#{industryId},</if>
@@ -89,6 +94,7 @@
         <trim prefix="SET" suffixOverrides=",">
             <if test="personName != null  and personName != ''">person_name = #{personName},</if>
             <if test="sex != null ">sex = #{sex},</if>
+            <if test="recentCompany != null ">recent_company=#{recentCompany},</if>
             <if test="phone != null ">phone =#{phone},</if>
             <if test="age != null ">age = #{age},</if>
             <if test="industryId != null ">industry_id = #{industryId},</if>

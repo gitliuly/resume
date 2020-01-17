@@ -15,7 +15,7 @@
                             <input type="text" name="personName"/>
                         </li>
                         <li>
-                            应聘行业：
+                            行业：
                             <select class="" id="industryId" name="industryId"
                                     th:with="type=${@company.getLnIndustry()}">
                                 <option value="">--请选择--</option>
@@ -97,11 +97,11 @@
                 },
                 {
                     field : 'industryName',
-                    title : '应聘行业'
+                    title : '行业'
                 },
                 {
                     field : 'positionName',
-                    title : '应聘职位'
+                    title : '职位'
                 },
 
                 {

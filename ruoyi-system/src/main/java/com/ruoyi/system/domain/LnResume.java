@@ -54,8 +54,19 @@ public class LnResume extends BaseEntity {
     @Excel(name = "入职公司")
     private String entryCompanyId;
 
+
+    private String recentCompany;
+
     private String industryName;
     private String positionName;
+
+    public String getRecentCompany() {
+        return recentCompany;
+    }
+
+    public void setRecentCompany(String recentCompany) {
+        this.recentCompany = recentCompany;
+    }
 
     /** 企业组 */
     private Long[] postIds;

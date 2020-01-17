@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--360浏览器优先以webkit内核解析-->
-    <title>若依介绍</title>
+    <title>求职管理</title>
     <link rel="shortcut icon" href="favicon.ico">
     <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
@@ -13,9 +13,51 @@
 </head>
 
 <body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h5 class="m-b-md">求职人数</h5>
+                    <h2 class="text-navy">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </h2>
+                    <small>总人数：<span th:text="${apply}"></span></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox">
+                <div class="ibox-content ">
+                    <h5 class="m-b-md">入职人数</h5>
+                    <h2 class="text-navy">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </h2>
+                    <small>总人数：<span th:text="${onboarding}"></span></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h5 class="m-b-md">合作企业</h5>
+                    <h2 class="text-danger">
+                        <i class="glyphicon glyphicon-home"></i>
+                    </h2>
+                    <small>企业总数：<span th:text="${companyList}"></span></small>
+                </div>
+            </div>
+        </div>
 
+    </div>
+</div>
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
+    <script type="text/javascript">
+        $(function () {
+            // alert("s")
+        });
+    </script>
 </body>
 </html>

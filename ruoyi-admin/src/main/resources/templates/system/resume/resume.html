@@ -20,7 +20,11 @@
                             <input type="text" name="age"/>
                         </li>
                         <li>
-                            就职企业：
+                            最近就职：
+                            <input type="text" name="recentCompany"/>
+                        </li>
+                        <li>
+                            推荐就职企业：
                             <input type="text" name="recommendCompany"/>
                         </li>
                         <li>
@@ -86,45 +90,62 @@
             },
                 {
                     title: "序号",
+                    width:'4%',
                     formatter: function (value, row, index) {
                         return $.table.serialNumber(index);
                     }
                 },
                 {
                     field : 'personName',
+                    width:'8%',
                     title : '姓名'
                 },
                 {
                     field : 'phone',
+                    width:'10%',
                     title : '联系电话'
                 },
                 {
                     field : 'sex',
                     title : '性别',
+                    width:'5%',
                     formatter: function (value, row, index) {
                         return $.table.selectDictLabel(data, value);
                     }
                 },
                 {
                     field : 'age',
+                    width:'5%',
                     title : '年龄'
                 },
                 {
                     field : 'industryName',
+                    width:'10%',
                     title : '应聘行业'
                 },
                 {
                     field : 'positionName',
+                    width:'10%',
                     title : '应聘职位'
                 },
                 {
+                    field : 'recentCompany',
+                    width:'10%',
+                    title : '最近就职'
+                },
+                {
                     field : 'recommendCompany',
-                    title : '推荐就职企业'
+                    width:'10%',
+                    title : '推荐就职企业',
+                    formatter: function (value, row, index) {
+                        return $.table.tooltip(value);
+                    }
                 },
 
                 {
                     title: '操作',
                     align: 'center',
+                    width:'30%',
                     formatter: function(value, row, index) {
                         var actions = [];
                         actions.push('<a class="btn btn-info btn-xs ' + onboardingFlag + '" href="javascript:void(0)" onclick="onboarding(\'' + row.id + '\')"><i class="fa fa-key"></i>已入职</a> ');

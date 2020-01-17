@@ -72,29 +72,35 @@
             },
                 {
                     title: "序号",
+                    width:'5%',
                     formatter: function (value, row, index) {
                         return $.table.serialNumber(index);
                     }
                 },
                 {
                     field : 'companyName',
-                    title : '企业名称'
+                    title : '企业名称',
+                    width:'20%',
                 },
                 {
                     field : 'industryName',
-                    title : '所属行业'
+                    title : '所属行业',
+                    width:'20%'
                 },
                 {
                     field : 'jobsOnOffer',
-                    title : '招聘职位'
+                    title : '招聘职位',
+                    width:'20%'
                 },
                 {
                     field : 'address',
-                    title : '公司地址'
+                    title : '公司地址',
+                    width:'20%'
                 },
                 {
                     title: '操作',
                     align: 'center',
+                    width:'20%',
                     formatter: function(value, row, index) {
                         var actions = [];
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.companyId + '\')"><i class="fa fa-edit"></i>编辑</a> ');

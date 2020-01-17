@@ -78,7 +78,7 @@
             exportUrl: prefix + "/export",
             modalName: "面试记录",
             columns: [{
-                checkbox: true
+                checkbox: true,
             },
                 {
                     field: 'id',
@@ -91,11 +91,16 @@
                 },
                 {
                     field: 'companyName',
-                    title: '面试单位'
+                    title: '面试单位',
+                    width: '20%',
+                    formatter: function (value, row, index) {
+                        return $.table.tooltip(value);
+                    }
                 },
                 {
                     field: 'content',
                     title: '面试内容',
+                    width: '25%',
                     formatter: function (value, row, index) {
                         return $.table.tooltip(value);
                     }

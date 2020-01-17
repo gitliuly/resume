@@ -68,11 +68,12 @@
             exportUrl: prefix + "/export",
             modalName: "公司",
             columns: [{
-                checkbox: true
+                checkbox: true,
+                width:'3%',
             },
                 {
                     title: "序号",
-                    width:'5%',
+                    width:'3%',
                     formatter: function (value, row, index) {
                         return $.table.serialNumber(index);
                     }
@@ -85,12 +86,15 @@
                 {
                     field : 'industryName',
                     title : '所属行业',
-                    width:'20%'
+                    width:'15%'
                 },
                 {
                     field : 'jobsOnOffer',
                     title : '招聘职位',
-                    width:'20%'
+                    width:'20%',
+                    formatter: function (value, row, index) {
+                        return $.table.tooltip(value);
+                    }
                 },
                 {
                     field : 'address',

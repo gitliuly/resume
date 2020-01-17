@@ -23,7 +23,7 @@ import java.util.List;
  * @author mi
  * @date 2020-01-13
  */
-@Service
+@Service("resume")
 public class LnResumeServiceImpl implements ILnResumeService {
     @Autowired
     private LnResumeMapper lnResumeMapper;
@@ -31,6 +31,16 @@ public class LnResumeServiceImpl implements ILnResumeService {
     private SysResumePostMapper sysResumePostMapper;
     @Autowired
     private LnCompanyMapper lnCompanyMapper;
+
+    /**
+     * 查询所有求职者
+     *
+     * @param
+     * @return 求职者姓名
+     */
+    public List<LnResume> selectAllPeople() {
+        return lnResumeMapper.selectAllPeople();
+    }
 
     /**
      * 查询个人简历

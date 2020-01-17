@@ -11,6 +11,16 @@ import java.util.List;
  * @date 2020-01-13
  */
 public interface LnResumeMapper {
+
+    /**
+     * 查询所有求职者
+     *
+     * @param
+     * @return 求职者姓名
+     */
+    public List<LnResume> selectAllPeople();
+
+
     /**
      * 查询个人简历
      *

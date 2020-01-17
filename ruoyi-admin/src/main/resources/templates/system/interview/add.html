@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('新增面试记录')"/>
+    <th:block th:include="include :: datetimepicker-css"/>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-interview-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">求职人：</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="name" name="name" th:with="type=${@resume.selectAllPeople()}">
+                    <option value="">--请选择求职人--</option>
+                    <option th:each="resume : ${type}" th:text="${resume.personName}"
+                            th:value="${resume.personName}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">面试单位：</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="companyName" name="companyName"
+                        th:with="type=${@companys.selectAllCompanyName()}">
+                    <option value="">--请选择面试单位--</option>
+                    <option th:each="companys : ${type}" th:text="${companys.companyName}"
+                            th:value="${companys.companyName}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">面试内容：</label>
+            <div class="col-sm-8">
+                <textarea type="text" id="content" name="content" class="form-control"
+                          style="min-width: 478px; max-width: 478px; min-height: 200px;" placeholder="请输入文本"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label"><span style="color: red; ">*</span>面试日期：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input class="form-control" id="createTime" name="createTime" placeholder="yyyy-MM-dd"
+                           type="text">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label  is-required">面试结果：</label>
+            <div class="col-sm-8">
+                <div class="radio check-box">
+                    <label>
+                        <input type="radio" checked="" value="1" name="status">成功
+                    </label>
+                </div>
+                <div class="radio check-box">
+                    <label>
+                        <input type="radio" value="0" name="status">失败
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
+<script type="text/javascript">
+    $(function () {
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#createTime'
+            });
+
+        });
+    });
+    var prefix = ctx + "system/interview"
+    $("#form-interview-add").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($("#name").val() == "" || $('#name option:selected').val() == "--请选择求职人--") {
+            $.modal.msgError("请选择求职人");
+            return false;
+        }
+        ;
+        if ($("#companyName").val() == "" || $('#companyName option:selected').val() == "--请选择面试单位--") {
+            $.modal.msgError("请选择面试单位");
+            return false;
+        }
+        ;
+        if ($("#content").val() == "" || $("#content").val() == null) {
+            $.modal.msgError("请输入面试内容");
+            return false;
+        }
+        ;
+        if ($("#createTime").val() == "" || $("#content").val() == null) {
+            $.modal.msgError("请选择面试时间");
+            return false;
+        }
+        ;
+
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/add", $('#form-interview-add').serialize());
+        }
+    }
+</script>
+</body>
+</html>

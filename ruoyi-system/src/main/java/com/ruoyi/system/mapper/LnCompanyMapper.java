@@ -10,6 +10,15 @@ import java.util.List;
  * @date 2020-01-13
  */
 public interface LnCompanyMapper {
+
+    /**
+     * 查询所有公司
+     *
+     * @param
+     * @return 公司名称
+     */
+    public List<LnCompany> selectAllCompanyName();
+
     /**
      * 查询公司
      *

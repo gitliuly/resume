@@ -34,6 +34,10 @@
         SELECT COUNT(position_id) FROM ln_resume WHERE position_id = #{positionId}
     </select>
 
+    <select id="selectAllPeople" resultMap="LnResumeResult">
+        SELECT person_name FROM ln_resume
+    </select>
+
     <select id="selectLnResumeList" parameterType="LnResume" resultMap="LnResumeResult">
         <include refid="selectLnResumeVo"/>
         <where>

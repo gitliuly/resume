@@ -18,12 +18,22 @@ import java.util.List;
  * @author mi
  * @date 2020-01-13
  */
-@Service
+@Service("companys")
 public class LnCompanyServiceImpl  implements ILnCompanyService {
     @Autowired
     private LnCompanyMapper lnCompanyMapper;
     @Autowired
     private LnIndustryMapper lnIndustryMapper;
+
+    /**
+     * 查询所有公司
+     *
+     * @param
+     * @return 公司名称
+     */
+    public List<LnCompany> selectAllCompanyName() {
+        return lnCompanyMapper.selectAllCompanyName();
+    }
 
     /**
      * 查询公司

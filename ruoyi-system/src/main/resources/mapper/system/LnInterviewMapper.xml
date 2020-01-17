@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.LnInterviewMapper">
+
+    <resultMap type="LnInterview" id="LnInterviewResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="companyName" column="company_name"/>
+        <result property="content" column="content"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectLnInterviewVo">
+        select id, name, company_name, content, status, create_time from ln_interview
+    </sql>
+
+    <select id="selectLnInterviewList" parameterType="LnInterview" resultMap="LnInterviewResult">
+        <include refid="selectLnInterviewVo"/>
+        <where>
+            <if test="name != null  and name != ''">and name = #{name}</if>
+            <if test="companyName != null  and companyName != ''">and company_name = #{companyName}</if>
+            <if test="content != null  and content != ''">and content like concat('%', #{content}, '%')</if>
+            <if test="status != null  and status != ''">and status = #{status}</if>
+        </where>
+    </select>
+
+    <select id="selectLnInterviewById" parameterType="Long" resultMap="LnInterviewResult">
+        <include refid="selectLnInterviewVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertLnInterview" parameterType="LnInterview" useGeneratedKeys="true" keyProperty="id">
+        insert into ln_interview
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null  and name != ''">name,</if>
+            <if test="companyName != null  and companyName != ''">company_name,</if>
+            <if test="content != null  and content != ''">content,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="createTime != null ">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null  and name != ''">#{name},</if>
+            <if test="companyName != null  and companyName != ''">#{companyName},</if>
+            <if test="content != null  and content != ''">#{content},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="createTime != null ">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateLnInterview" parameterType="LnInterview">
+        update ln_interview
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null  and name != ''">name = #{name},</if>
+            <if test="companyName != null  and companyName != ''">company_name = #{companyName},</if>
+            <if test="content != null  and content != ''">content = #{content},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLnInterviewById" parameterType="Long">
+        delete from ln_interview where id = #{id}
+    </delete>
+
+    <delete id="deleteLnInterviewByIds" parameterType="String">
+        delete from ln_interview where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

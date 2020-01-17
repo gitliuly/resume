@@ -9,8 +9,9 @@
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">所属行业：</label>
             <div class="col-sm-8">
-                <select class="form-control" name="industryId" th:with="type=${@industry.selectIndustry()}">
-                    <option value="">所有</option>
+                <select class="form-control" id="industryId" name="industryId"
+                        th:with="type=${@industry.selectIndustry()}">
+                    <option value="">--请选择所属行业--</option>
                     <option th:each="industry : ${type}" th:text="${industry.industryName}"
                             th:value="${industry.industryId}"></option>
                 </select>
@@ -32,6 +33,11 @@
     });
 
     function submitHandler() {
+        if ($("#industryId").val() == "" || $('#industryId option:selected').val() == "--请选择所属行业--") {
+            $.modal.msgError("请选择所属行业");
+            return false;
+        }
+        ;
         if ($.validate.form()) {
             $.operate.save(prefix + "/add", $('#form-position-add').serialize());
         }

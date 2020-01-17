@@ -17,6 +17,10 @@
         select company_id, company_name, industry_id, jobs_on_offer, address, create_time from ln_company
     </sql>
 
+    <select id="selectAllCompanyName" resultMap="LnCompanyResult">
+        SELECT company_name FROM ln_company
+    </select>
+
     <select id="selectLnCompanyList" parameterType="LnCompany" resultMap="LnCompanyResult">
         <include refid="selectLnCompanyVo"/>
         <where>
